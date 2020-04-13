@@ -1,0 +1,5 @@
+python 'help("modules")'
+pip listi
+pip show numpy
+pip search tesseract
+pip list --format=freeze > requirements.txt
