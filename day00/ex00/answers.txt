@@ -1,5 +1,5 @@
-python 'help("modules")'
-pip listi
+pydoc modules
+pip list
 pip show numpy
 pip search tesseract
 pip list --format=freeze > requirements.txt
