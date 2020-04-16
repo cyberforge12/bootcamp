@@ -112,11 +112,11 @@ class Vector:
         if type(other) in [int, float]:
             return [i * other for i in self.values]
         elif type(other) == Vector:
-            return [a * b for a, b in zip(self.values, other.values)]
+            return sum([a * b for a, b in zip(self.values, other.values)])
         elif len(other) == 1:
             return [i * other[0] for i in self.values]
         elif len(other) == len(self.values):
-            return [a * b for a, b in zip(self.values, other)]
+            return sum([a * b for a, b in zip(self.values, other)])
         else:
             raise ValueError('Incorrect multiplication.\n'
                              '\tPlease provide:\n'
