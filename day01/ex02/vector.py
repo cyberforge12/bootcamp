@@ -67,31 +67,7 @@ class Vector:
                              '\t- a vector and a scalar, or\n'
                              '\t- a vector and vector of size one')
 
-    def __rsub__(self, other):
-        if type(other) in [int, float] and len(self.values) == 1:
-            return [other - i for i in self.values]
-        elif type(other) == Vector:
-            if len(other.values) == 1 and len(self.values) == 1:
-                return other.values[0] - self.values[0]
-            elif len(other.values) == len(self.values):
-                return [a - b for a, b in zip(self.values, other.values)]
-            else:
-                raise ValueError('Incorrect subtraction.\n'
-                                 '\tPlease provide:\n'
-                                 '\t- two vectors of the same length, or\n'
-                                 '\t- a vector and a scalar, or\n'
-                                 '\t- a vector and vector of size one')
-        else:
-            raise ValueError('Incorrect subtraction.\n'
-                             '\tPlease provide:\n'
-                             '\t- two vectors of the same length, or\n'
-                             '\t- a vector and a scalar, or\n'
-                             '\t- a vector and vector of size one')
-
-        ret = list(other)
-        for i in self.values:
-            ret.remove(i)
-        return ret
+    __rsub__ = __sub__
 
     # div : only scalars.
     def __truediv__(self, other):
