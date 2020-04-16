@@ -1,5 +1,11 @@
 import numpy
 
+def isfloat(value):
+  try:
+    float(value)
+    return True
+  except ValueError:
+    return False
 
 class Vector:
     def __init__(self, num):
@@ -20,38 +26,68 @@ class Vector:
         if type(other) in [int, float]:
             return [i + other for i in self.values]
         elif type(other) == Vector:
-            elif len(other.values) == 1:
-                return [i * other[0] for i in self.values]
+            if len(other.values) == 1:
+                return [i + other.values[0] for i in self.values]
             elif len(other.values) == len(self.values):
-                return [a * b for a, b in zip(self.values, other.values)]
+                return [a + b for a, b in zip(self.values, other.values)]
             else:
-                raise ValueError('Incorrect multiplication.\n'
+                raise ValueError('Incorrect addition.\n'
                                  '\tPlease provide:\n'
                                  '\t- two vectors of the same length, or\n'
                                  '\t- a vector and a scalar, or\n'
                                  '\t- a vector and vector of size one')
-    elif len(other) == 1 and type(other[0]):
-            return [i * other[0] for i in self.values]
-        elif len(other) == len(self.values):
-            return [a * b for a, b in zip(self.values, other)]
         else:
-            raise ValueError('Incorrect multiplication.\n'
+            raise ValueError('Incorrect addition.\n'
                              '\tPlease provide:\n'
                              '\t- two vectors of the same length, or\n'
                              '\t- a vector and a scalar, or\n'
                              '\t- a vector and vector of size one')
-        return ret
 
     __radd__ = __add__
 
     # sub : scalars and vectors, can have errors with vectors.
     def __sub__(self, other):
-        ret = list(self.values)
-        for i in other:
-            ret.remove(i)
-        return ret
+        if type(other) in [int, float]:
+            return [i - other for i in self.values]
+        elif type(other) == Vector:
+            if len(other.values) == 1:
+                return [i - other[0] for i in self.values]
+            elif len(other.values) == len(self.values):
+                return [a - b for a, b in zip(self.values, other.values)]
+            else:
+                raise ValueError('Incorrect subtraction.\n'
+                                 '\tPlease provide:\n'
+                                 '\t- two vectors of the same length, or\n'
+                                 '\t- a vector and a scalar, or\n'
+                                 '\t- a vector and vector of size one')
+        else:
+            raise ValueError('Incorrect subtraction.\n'
+                             '\tPlease provide:\n'
+                             '\t- two vectors of the same length, or\n'
+                             '\t- a vector and a scalar, or\n'
+                             '\t- a vector and vector of size one')
 
     def __rsub__(self, other):
+        if type(other) in [int, float] and len(self.values) == 1:
+            return [other - i for i in self.values]
+        elif type(other) == Vector:
+            if len(other.values) == 1 and len(self.values) == 1:
+                return other.values[0] - self.values[0]
+            elif len(other.values) == len(self.values):
+                return [a - b for a, b in zip(self.values, other.values)]
+            else:
+                raise ValueError('Incorrect subtraction.\n'
+                                 '\tPlease provide:\n'
+                                 '\t- two vectors of the same length, or\n'
+                                 '\t- a vector and a scalar, or\n'
+                                 '\t- a vector and vector of size one')
+        else:
+            raise ValueError('Incorrect subtraction.\n'
+                             '\tPlease provide:\n'
+                             '\t- two vectors of the same length, or\n'
+                             '\t- a vector and a scalar, or\n'
+                             '\t- a vector and vector of size one')
+
         ret = list(other)
         for i in self.values:
             ret.remove(i)
